@@ -31,6 +31,59 @@ usgs-earthquake-api = "0.1.0"
 
 ---
 
+# 🔧 Example usage
+
+```rust
+use usgs_earthquake_api::{UsgsClient, AlertLevel, OrderBy};
+use tokio;
+
+#[tokio::main]
+async fn main() {
+    let client = UsgsClient::new();
+
+    let result = client
+        .query()
+        .filter_by_country_code("TR")
+        .start_time(2024, 12, 1, 0, 0)
+        .end_time(2024, 12, 31, 23, 59)
+        .min_magnitude(5.0)
+        .order_by(OrderBy::Magnitude)
+        .alert_level(AlertLevel::All)
+        .fetch()
+        .await;
+
+    match result {
+        Ok(response) => {
+            println!("Found {} earthquakes", response.metadata.count);
+            for eq in response.features {
+                println!(
+                    "Magnitude: {:?}, Location: {:?}",
+                    eq.properties.magnitude,
+                    eq.properties.place
+                );
+            }
+        }
+        Err(err) => eprintln!("Error: {}", err),
+    }
+}
+```
+
+---
+
+# 📊 Data Source & Disclaimer
+
+This crate uses the **[USGS Earthquake API](https://earthquake.usgs.gov/fdsnws/event/1/)**.
+The data is provided by the United States Geological Survey (USGS).
+
+⚠️ Disclaimer:
+
+USGS provides this data as a public service. No warranty is expressed or implied regarding
+accuracy, timeliness, or completeness of the data. See the **[USGS Website](https://www.usgs.gov/)**.
+
+This library is an unofficial client and is not affiliated with or endorsed by the USGS.
+
+---
+
 ## 📜 License
 
 This project is licensed under the [MIT License](LICENSE).
@@ -43,3 +96,5 @@ This project is licensed under the [MIT License](LICENSE).
 
 Founder of Kaizenium Foundation  
 Email: kaizenium@kaizeniumfoundation.com
+
+---
