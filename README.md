@@ -76,6 +76,16 @@ async fn main() {
 This crate uses the **[USGS Earthquake API](https://earthquake.usgs.gov/fdsnws/event/1/)**.
 The data is provided by the United States Geological Survey (USGS).
 
+This project uses several open-source crates:
+- [`reqwest`](https://github.com/seanmonstar/reqwest) — MIT/Apache-2.0
+- [`tokio`](https://github.com/tokio-rs/tokio) — MIT
+- [`chrono`](https://github.com/chronotope/chrono) — MIT/Apache-2.0
+- [`serde`](https://github.com/serde-rs/serde) — MIT/Apache-2.0
+- [`thiserror`](https://github.com/dtolnay/thiserror) — MIT/Apache-2.0
+- [`country-boundaries`](https://github.com/westnordost/country-boundaries-rust/) — Apache-2.0
+
+
+
 ⚠️ Disclaimer:
 
 USGS provides this data as a public service. No warranty is expressed or implied regarding
