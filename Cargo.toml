@@ -1,0 +1,21 @@
+[package]
+name = "usgs-earthquake-api"
+version = "0.1.0"
+authors = ["Mert Bölükbaşı <kaizenium@kaizeniumfoundation.com>"]
+edition = "2024"
+description = "A Rust client library for querying the USGS Earthquake API. Provides request validation, error handling, and data models for earthquake events."
+license = "MIT"
+repository = "https://github.com/mertbolukbasi/usgs-earthquake-api"
+documentation = "https://docs.rs/usgs-earthquake-api"
+readme = "README.md"
+keywords = ["earthquake", "usgs", "api"]
+categories = ["science", "api-bindings"]
+
+
+[dependencies]
+reqwest = { version = "0.12.23", features = ["json"] }
+tokio = { version = "1.47.1", features = ["full"]}
+chrono = "0.4.42"
+thiserror = "2.0.16"
+serde = { version = "1.0.226", features = ["derive"] }
+country-boundaries = "1.2.0"
