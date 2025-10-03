@@ -39,32 +39,33 @@ use tokio;
 
 #[tokio::main]
 async fn main() {
-    let client = UsgsClient::new();
+	let client = UsgsClient::new();
 
-    let result = client
-        .query()
-        .filter_by_country_code("TR")
-        .start_time(2024, 12, 1, 0, 0)
-        .end_time(2024, 12, 31, 23, 59)
-        .min_magnitude(5.0)
-        .order_by(OrderBy::Magnitude)
-        .alert_level(AlertLevel::All)
-        .fetch()
-        .await;
+	let result = client
+		.query()
+		.filter_by_country_code("TR")
+		.start_time(2025, 9, 1, 0, 0)
+		.end_time(2025, 10, 4, 0, 0)
+		.min_magnitude(4.0)
+		.max_magnitude(7.0)
+		.order_by(OrderBy::Magnitude)
+		.alert_level(AlertLevel::All)
+		.fetch()
+		.await;
 
-    match result {
-        Ok(response) => {
-            println!("Found {} earthquakes", response.metadata.count);
-            for eq in response.features {
-                println!(
-                    "Magnitude: {:?}, Location: {:?}",
-                    eq.properties.magnitude,
-                    eq.properties.place
-                );
-            }
-        }
-        Err(err) => eprintln!("Error: {}", err),
-    }
+	match result {
+		Ok(response) => {
+			println!("Found {} earthquakes", response.metadata.count);
+			for eq in response.features {
+				println!(
+					"Magnitude: {:?}, Location: {:?}",
+					eq.properties.magnitude.unwrap(),
+					eq.properties.place.unwrap()
+				);
+			}
+		}
+		Err(err) => println!("Error: {}", err),
+	}
 }
 ```
 
